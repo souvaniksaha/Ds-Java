@@ -90,4 +90,55 @@ public class DoubleLinkedList implements DLLInterface {
 		return head;
 		
 	}
+	@Override
+	public Node delteFromFirst(Node head) {
+		if(head == null)
+	      System.out.println("List is Empty.Nothing to delete.");
+		else if(getLength(head) == 1) {
+			head = null;
+		    System.out.println("Node deleted Successfully!");
+		}else {
+			head = head.getNext();
+			head.setPrevious(null);
+		}
+		return head;
+	}
+
+	@Override
+	public Node delteFromLast(Node head) {
+		Node current = head;
+		if(head == null)
+		      System.out.println("List is Empty.Nothing to delete.");
+	  else if(getLength(head) == 1) {
+		  head = null;
+		  System.out.println("Node deleted Successfully!");
+	  }else {
+		  
+		  while(current.getNext()!=null)
+			  current= current.getNext();
+		  
+		  current.getPrevious().setNext(null);
+	  }
+		
+		return head;
+	}
+
+	@Override
+	public Node deleteElementByPosition(Node head, int position) {	
+	   if(position <=0  || position>getLength(head))
+		   System.out.println("Enter a valid position!");
+	   else if(position == 1)
+		head = delteFromFirst(head);
+	   else if(position == getLength(head))
+		 head = delteFromLast(head);
+	   else {
+		   Node current = head;
+		  for(int i = 1 ; i<position ;i++)
+			   current = current.getNext();
+		  
+		 current.getPrevious().setNext(current.getNext()); 
+		 current.getNext().setPrevious(current.getPrevious());  
+	   }
+		return head;
+	}
 }
